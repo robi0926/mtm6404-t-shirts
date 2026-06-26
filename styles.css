@@ -1,0 +1,4 @@
+body { font-family: sans-serif; padding: 20px; }
+.tshirts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.tshirt { border: 1px solid #ccc; padding: 10px; text-align: center; }
+.tshirt img { width: 100%; }

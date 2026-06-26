@@ -4,20 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>T-Shirts</title>
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <style>
-    body { font-family: sans-serif; padding: 20px; }
-    .tshirts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .tshirt { border: 1px solid #ccc; padding: 10px; text-align: center; }
-    .tshirt img { width: 100%; }
-  </style>
+  <script src="https://unpkg.com/@babel/standalone@7.22.0/babel.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div id="root"></div>
-  <script src="t-shirts.js"></script>
-  <script type="text/babel">
+  <script type="text/babel" data-type="module">
+    import React from 'https://esm.sh/react@18'
+    import ReactDOM from 'https://esm.sh/react-dom@18/client'
+    import { tshirts } from './t-shirts.js'
+
     function TShirt (props) {
       const tshirt = props.tshirt
       const [stock, setStock] = React.useState(tshirt.stock)
