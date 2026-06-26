@@ -4,9 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>T-Shirts</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .tshirts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .tshirt { border: 1px solid #ccc; padding: 10px; text-align: center; }
+    .tshirt img { width: 100%; }
+  </style>
 </head>
 <body>
-  
-  
+  <div id="root"></div>
+  <script src="t-shirts.js"></script>
+  <script type="text/babel">
+    function TShirt (props) {
+      const tshirt = props.tshirt
+      const [stock, setStock] = React.useState(tshirt.stock)
+      const [quantity, setQuantity] = React.useState(1)
+
+      function quantityHandler (e) {
+        setQuantity(parseInt(e.target.value))
+      }
+
+      function buyHandler () {
+        setStock(stock - quantity)
+        setQuantity(1)
+      }
+
+      return (
+        <div className="tshirt">
+          <img src={'images/' + tshirt.image} alt={tshirt.title} />
+          <h2>{tshirt.title}</h2>
+          <p>${tshirt.price}</p>
+          <p>Remaining Stock: {stock}</p>
+          {stock === 0 ? (
+            <p>Out of Stock</p>
+          ) : (
+            <div>
+              <select value={quantity} onChange={quantityHandler}>
+                {Array.from({ length: stock }, (_, i) => (
+                  <option key={i + 1} value={i + 1}>{i + 1}</option>
+                ))}
+              </select>
+              <button onClick={buyHandler}>Buy</button>
+            </div>
+          )}
+        </div>
+      )
+    }
+
+    function App () {
+      return (
+        <div>
+          <h1>T-Shirts</h1>
+          <div className="tshirts">
+            {tshirts.map(tshirt => <TShirt key={tshirt.title} tshirt={tshirt} />)}
+          </div>
+        </div>
+      )
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'))
+    root.render(<App />)
+  </script>
 </body>
 </html>
